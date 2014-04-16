@@ -6,7 +6,8 @@ var clientHeight = 0;
 
 // Initialize Scroller
 this.scroller = new Scroller(render, {
-	zooming: true
+	zooming: true,
+	maxZoom: 5
 });
 
 

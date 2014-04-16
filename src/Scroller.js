@@ -481,17 +481,17 @@ var Scroller;
 			var top = ((originTop + self.__scrollTop) * level / oldLevel) - originTop;
 
 			// Limit x-axis
-			if (left > self.__maxScrollLeft) {
-				left = self.__maxScrollLeft;
-			} else if (left < 0) {
-				left = 0;
+			if (self.__maxScrollLeft < 0) {
+				left = self.__maxScrollLeft / 2;
+			} else {
+				left = Math.max(Math.min(self.__maxScrollLeft, left), 0);
 			}
 
 			// Limit y-axis
-			if (top > self.__maxScrollTop) {
-				top = self.__maxScrollTop;
-			} else if (top < 0) {
-				top = 0;
+			if (self.__maxScrollTop < 0) {
+				top = self.__maxScrollTop / 2;
+			} else {
+				top = Math.max(Math.min(self.__maxScrollTop, top), 0);
 			}
 
 			// Push values out
@@ -585,8 +585,19 @@ var Scroller;
 			}
 
 			// Limit for allowed ranges
-			left = Math.max(Math.min(self.__maxScrollLeft, left), 0);
-			top = Math.max(Math.min(self.__maxScrollTop, top), 0);
+			// Limit x-axis
+			if (self.__maxScrollLeft < 0) {
+				left = self.__maxScrollLeft / 2;
+			} else {
+				left = Math.max(Math.min(self.__maxScrollLeft, left), 0);
+			}
+
+			// Limit y-axis
+			if (self.__maxScrollTop < 0) {
+				top = self.__maxScrollTop / 2;
+			} else {
+				top = Math.max(Math.min(self.__maxScrollTop, top), 0);
+			}
 
 			// Don't animate when no change detected, still call publish to make sure
 			// that rendered position is really in-sync with internal data
@@ -1145,8 +1156,8 @@ var Scroller;
 				zoomLevel = self.__zoomLevel;
 			}
 
-			self.__maxScrollLeft = Math.max((self.__contentWidth * zoomLevel) - self.__clientWidth, 0);
-			self.__maxScrollTop = Math.max((self.__contentHeight * zoomLevel) - self.__clientHeight, 0);
+			self.__maxScrollLeft = (self.__contentWidth * zoomLevel) - self.__clientWidth;
+			self.__maxScrollTop = (self.__contentHeight * zoomLevel) - self.__clientHeight;
 
 		},
 
@@ -1182,10 +1193,21 @@ var Scroller;
 
 			} else {
 
-				self.__minDecelerationScrollLeft = 0;
-				self.__minDecelerationScrollTop = 0;
-				self.__maxDecelerationScrollLeft = self.__maxScrollLeft;
-				self.__maxDecelerationScrollTop = self.__maxScrollTop;
+				if (self.__maxScrollLeft > 0) {
+					self.__minDecelerationScrollLeft = 0;
+					self.__maxDecelerationScrollLeft = self.__maxScrollLeft;
+				} else {
+					self.__minDecelerationScrollLeft = self.__maxScrollLeft / 2;
+					self.__maxDecelerationScrollLeft = self.__maxScrollLeft / 2;;
+				}
+
+				if (self.__maxScrollTop > 0) {
+					self.__minDecelerationScrollTop = 0;
+					self.__maxDecelerationScrollTop = self.__maxScrollTop;
+				} else {
+					self.__minDecelerationScrollTop = self.__maxScrollTop / 2;
+					self.__maxDecelerationScrollTop = self.__maxScrollTop / 2;
+				}
 
 			}
 
