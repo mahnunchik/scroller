@@ -66,12 +66,12 @@ var Scroller;
 				provided that another scrolling action has not begun. Used to know
 				when to fade out a scrollbar. */
 			scrollingComplete: NOOP,
-			
-			/** This configures the amount of change applied to deceleration when reaching boundaries  **/
-            penetrationDeceleration : 0.03,
 
-            /** This configures the amount of change applied to acceleration when reaching boundaries  **/
-            penetrationAcceleration : 0.08
+			/** This configures the amount of change applied to deceleration when reaching boundaries  **/
+			penetrationDeceleration : 0.03,
+
+			/** This configures the amount of change applied to acceleration when reaching boundaries  **/
+			penetrationAcceleration : 0.08
 
 		};
 
@@ -826,14 +826,12 @@ var Scroller;
 
 							scrollLeft += (moveX / 2  * this.options.speedMultiplier);
 
-						} else if (scrollLeft > maxScrollLeft) {
-
-							scrollLeft = maxScrollLeft;
-
 						} else {
-
-							scrollLeft = 0;
-
+							if (maxScrollLeft < 0) {
+								scrollLeft = maxScrollLeft / 2;
+							} else {
+								scrollLeft = Math.max(Math.min(maxScrollLeft, scrollLeft), 0);
+							}
 						}
 					}
 				}
@@ -871,14 +869,12 @@ var Scroller;
 								}
 							}
 
-						} else if (scrollTop > maxScrollTop) {
-
-							scrollTop = maxScrollTop;
-
 						} else {
-
-							scrollTop = 0;
-
+							if (maxScrollTop < 0) {
+								scrollTop = maxScrollTop / 2;
+							} else {
+								scrollTop = Math.max(Math.min(maxScrollTop, scrollTop), 0);
+							}
 						}
 					}
 				}
@@ -997,7 +993,7 @@ var Scroller;
 					}
 				} else if ((timeStamp - self.__lastTouchMove) > 100) {
 					self.options.scrollingComplete();
-	 			}
+				}
 			}
 
 			// If this was a slower move it is per default non decelerated, but this
@@ -1329,8 +1325,8 @@ var Scroller;
 				var scrollOutsideY = 0;
 
 				// This configures the amount of change applied to deceleration/acceleration when reaching boundaries
-				var penetrationDeceleration = self.options.penetrationDeceleration; 
-				var penetrationAcceleration = self.options.penetrationAcceleration; 
+				var penetrationDeceleration = self.options.penetrationDeceleration;
+				var penetrationAcceleration = self.options.penetrationAcceleration;
 
 				// Check limits
 				if (scrollLeft < self.__minDecelerationScrollLeft) {

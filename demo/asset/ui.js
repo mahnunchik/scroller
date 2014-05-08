@@ -4,13 +4,6 @@ var content = document.getElementById("content");
 var clientWidth = 0;
 var clientHeight = 0;
 
-// Initialize Scroller
-this.scroller = new Scroller(render, {
-	zooming: true,
-	maxZoom: 5
-});
-
-
 var scrollLeftField = document.getElementById("scrollLeft");
 var scrollTopField = document.getElementById("scrollTop");
 var zoomLevelField = document.getElementById("zoomLevel");
@@ -109,7 +102,7 @@ if ('ontouchstart' in window) {
 		if (e.target.tagName.match(/input|textarea|select/i)) {
 			return;
 		}
-		
+
 		scroller.doTouchStart([{
 			pageX: e.pageX,
 			pageY: e.pageY
@@ -122,7 +115,7 @@ if ('ontouchstart' in window) {
 		if (!mousedown) {
 			return;
 		}
-		
+
 		scroller.doTouchMove([{
 			pageX: e.pageX,
 			pageY: e.pageY
@@ -135,7 +128,7 @@ if ('ontouchstart' in window) {
 		if (!mousedown) {
 			return;
 		}
-		
+
 		scroller.doTouchEnd(e.timeStamp);
 
 		mousedown = false;

@@ -3,18 +3,18 @@
 <head>
 	<title>Scroller - Center</title>
 	<link rel="stylesheet" href="asset/ui.css" />
-	
+
 	<script src="../src/Animate.js"></script>
 	<script src="../src/Scroller.js"></script>
 
 	<script src="asset/render.js"></script>
-	
+
 </head>
 <body>
 	<div id="container">
 		<div id="content">Content</div>
 	</div>
-	
+
 	<div id="settings">
 
 		<div><label for="scrollLeft">Scroll Left: </label><input type="text" id="scrollLeft" size="9"/></div>
@@ -41,22 +41,30 @@
 	<script type="text/javascript">
 
 		// Settings
-		var contentWidth = 300;
-		var contentHeight = 300;
+		var contentWidth = 400;
+		var contentHeight = 400;
 
 		// Initialize layout
 		var container = document.getElementById("container");
 		var content = document.getElementById("content");
-	
+
 		content.style.width = contentWidth + "px";
 		content.style.height = contentHeight + "px";
 		content.style.backgroundColor = "DarkSalmon";
 
+		// Initialize Scroller
+		window.scroller = new Scroller(render, {
+			zooming: true,
+			maxZoom: 5,
+			bouncing: false,
+			animating: true
+		});
+
 	</script>
-	
+
 	<!-- Create Scroller, bind UI layer and mouse/touch events -->
 	<script src="asset/ui.js"></script>
-	
-	
+
+
 	</body>
 </html>
