@@ -199,6 +199,6 @@ document.addEventListener("DOMContentLoaded", function() {
 			maxZoom: maxZoom
 		});
 
-	};
+	}
 
 }, false);

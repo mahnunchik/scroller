@@ -1194,7 +1194,7 @@ var Scroller;
 					self.__maxDecelerationScrollLeft = self.__maxScrollLeft;
 				} else {
 					self.__minDecelerationScrollLeft = self.__maxScrollLeft / 2;
-					self.__maxDecelerationScrollLeft = self.__maxScrollLeft / 2;;
+					self.__maxDecelerationScrollLeft = self.__maxScrollLeft / 2;
 				}
 
 				if (self.__maxScrollTop > 0) {
